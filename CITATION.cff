@@ -1,0 +1,19 @@
+cff-version: 1.2.0
+message: "If you use or adapt this material, please cite it as below."
+title: "Models Make You Lose Control: a hands-on guide to loss-of-control evaluation"
+type: software
+authors:
+  - given-names: "Andrew"
+    family-names: "Berkley"
+    alias: "andrewcberkley"
+version: 0.1.0
+repository-code: "https://github.com/andrewcberkley/models-make-you-lose-control"
+license:
+  - MIT
+  - CC-BY-NC-4.0
+keywords:
+  - ai-safety
+  - ai-evaluation
+  - loss-of-control
+  - ai-control
+  - jupyter

@@ -1,0 +1,5 @@
+# Store text files with LF line endings in git, whatever the operating system, so that regenerating the data
+# or editing on Windows doesn't show whole files as changed.
+* text=auto eol=lf
+*.xlsx binary
+*.png binary

@@ -1,0 +1,59 @@
+# Runs on every push and pull request, so a broken notebook or test shows up before readers hit it.
+name: Checks
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  checks:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ["3.12", "3.14"]
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      - name: Install dependencies
+        run: python -m pip install -r requirements.txt
+
+      - name: Run every solution notebook from top to bottom
+        env:
+          MPLBACKEND: Agg
+        run: |
+          mkdir -p "$RUNNER_TEMP/executed"
+          jupyter nbconvert --to notebook --execute --output-dir "$RUNNER_TEMP/executed" solutions/*.ipynb
+          python - <<'EOF'
+          import glob, json, os, sys
+          bad = []
+          for path in glob.glob(os.path.join(os.environ["RUNNER_TEMP"], "executed", "*.ipynb")):
+              for cell in json.load(open(path, encoding="utf-8"))["cells"]:
+                  for out in cell.get("outputs", []):
+                      if "Not yet" in "".join(out.get("text", [])):
+                          bad.append(os.path.basename(path))
+          if bad:
+              sys.exit(f"Checks said 'Not yet' in: {sorted(set(bad))}")
+          print("All solution notebooks ran and every check passed.")
+          EOF
+
+      - name: Run the Chapter 5 tests against the reference fix
+        if: hashFiles('tests/test_harness.py') != ''
+        env:
+          LAB_SOLUTIONS: "1"
+        run: python -m pytest tests
+
+      - name: Check that the synthetic data regenerates exactly
+        if: hashFiles('make_data.py') != ''
+        run: |
+          python make_data.py
+          git diff --exit-code -- data
+
+      - name: Build the artifact tables and figures
+        if: hashFiles('artifact/make_figures.py') != ''
+        env:
+          MPLBACKEND: Agg
+        run: python artifact/make_figures.py

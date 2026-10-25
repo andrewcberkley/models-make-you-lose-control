@@ -1,0 +1,7 @@
+# Tested with Python 3.12 and newer. Each package is pinned to a minor series (e.g., numpy 2.5.x), so you get
+# bug fixes but not new releases that might change results or break a notebook.
+numpy~=2.5.0
+pandas~=3.0.0
+matplotlib~=3.11.0
+pytest~=9.1.0
+notebook~=7.6.0
