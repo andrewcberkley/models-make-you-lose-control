@@ -79,7 +79,7 @@ Go at whatever pace suits you. Most chapters have a companion notebook with the 
 
 | Chapter | Notebook or exercise | The question it answers |
 | --- | --- | --- |
-| 1 | Getting-started notebook | How do these notebooks work? |
+| 0 | Getting-started notebook | How do these notebooks work? |
 | 1 | Chapter 1 notebook. How sure can you be when nothing went wrong? | What do zero failures in 300 tests actually rule out? |
 | 1 | Chapter 1 exercise. Threat model | What could go wrong with a lab's internal coding agent? |
 
