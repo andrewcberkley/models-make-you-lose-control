@@ -8,4 +8,4 @@ labels: suggestion
 
 **Which chapter (or chapters) would it fit into?**
 
-**Why would it help?** (e.g., something you found confusing, or something you wish you'd practised)
+**Why would it help?** (e.g., something you found confusing, or something you wish you'd practiced)
