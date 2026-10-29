@@ -1,5 +1,6 @@
 # Contributing
 
+
 Thanks for wanting to help. I'm writing these chapters as I go, so the most useful thing you can do is tell me when something's wrong or unclear (e.g., a typo, a broken cell, a check that fails when your answer looks right, or an explanation that didn't land).
 
 ## Reporting a problem or suggesting an idea
