@@ -1,5 +1,6 @@
 # Changelog
 
+
 This file records what changed in each update, newest first. I'm writing the chapters as I go, so each entry matches a new chapter (or, for the first entry, the setup). The format loosely follows [Keep a Changelog](https://keepachangelog.com), and the version goes up by one minor version per chapter, reaching 1.0.0 once every chapter is written.
 
 ## 0.2.0 (Chapter 1. Loss-of-control threat models)
