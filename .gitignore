@@ -1,3 +1,4 @@
+# Local environments, caches and generated output stay out of Git.
 .venv/
 __pycache__/
 *.pyc
