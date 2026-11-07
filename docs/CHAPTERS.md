@@ -13,6 +13,7 @@ Go at whatever pace suits you. I'm writing new chapters as I go and adding them 
 | Chapter | Topic | Practice |
 | --- | --- | --- |
 | 1 | Loss-of-control threat models | Getting-started and Chapter 1 notebooks, Chapter 1 exercise |
+| 2 | Safety cases and how they break | Chapter 2 notebook, Chapter 2 exercise |
 
 ## Chapter 1. Loss-of-control threat models
 
@@ -71,18 +72,87 @@ Set up the lab using its README, and then work through the getting-started noteb
 4. Name three pathways and one control that addresses each.
 5. For your top-ranked pathway in the Chapter 1 exercise, what result would make you rank it lower?
 
+## Chapter 2. Safety cases and how they break
+
+### Why it matters
+
+Labs are increasingly justifying their deployments with safety cases, and a big part of an evaluator's job is saying how much weight a given safety case can actually bear.
+
+### Core ideas
+
+A safety case is a structured argument, backed by evidence, that a system is safe enough in a particular context, and it's made up of claims, the argument that links those claims together and the evidence behind each one.
+
+Clymer et al. describe four kinds of argument, each of which needs a different kind of evidence.
+
+- Inability argues that the model simply can't do the dangerous thing. The evidence comes from capability evaluations, and the main risk is under-elicitation or sandbagging.
+- Control argues that even if the model does try, the safeguards will stop it, and the evidence comes from control evaluations run with a capable red team.
+- Trustworthiness argues that the model won't try in the first place, which is the hardest of the four to back up with evidence today.
+- Deference argues that a trusted AI system's judgment can be relied on, which mostly matters for future systems.
+
+Korbak et al.'s sketch of a control safety case rests on three claims, which are that the red team adequately elicits the model's ability to subvert the controls, that the controls stay at least as effective in deployment as they were in the test, and that the developers extrapolate conservatively when going from the test to deployment. Almost every weakness you'll find in a control safety case maps onto one of those three claims.
+
+Safety cases tend to break in the same handful of places, which are listed below.
+
+- Weak elicitation (e.g., stale attack libraries, a red team with fewer affordances than the deployed model, or no fine-tuning of attack policies).
+- A mismatch between the test setting and the real deployment, whether in task type, tools, permissions or scale.
+- Small samples that get reported as point estimates with no uncertainty attached.
+- Untested assumptions about human reviewers (e.g., that they're perfectly accurate or respond instantly).
+- Inconsistencies between the audit budget or staffing the case assumes and what the lab really has.
+- Monitors that are copies of the untrusted model, which means they can collude with it.
+- Per-action monitors up against attacks that are spread across many steps.
+- Evidence that the system itself can alter (e.g., logs it has write access to).
+- Claims that the case will stay valid after the model is updated.
+- Usefulness costs that are high enough to push teams into working around the controls.
+
+To break a case down, map each claim to its evidence, write out the assumptions it never states, ask what would happen if each of those assumptions turned out to be wrong, and then rank the weaknesses by how much of the conclusion rests on them. After that, say what evidence would fix each one, because a critique without a fix is much less useful to the lab.
+
+### Worked example
+
+Suppose a lab says "Our monitor catches 95% of attacks (19 of 20 were flagged)." The 95% 'Wilson interval' for 19 out of 20 runs from about 76% to 99%, so the data are perfectly consistent with a monitor that misses roughly one attack in four. On top of that, the attacks came from a library written for last year's model, so even the 95% may only describe how the monitor does against weak attacks. The fix is a larger and fresher attack set built specifically against this monitor, with the catch rate reported alongside its interval and the honest flag rate.
+
+### Common mistakes
+
+- Critiquing everything with equal force instead of finding the weaknesses that are actually load-bearing.
+- Missing the assumptions that a case never states.
+- Demanding evidence that nobody could realistically produce, rather than the best evidence that's feasible.
+- Forgetting that a case can be sound for one deployment and invalid for the next.
+
+### Practice
+
+Do the Chapter 2 notebook, which covers putting error bars on a rate (including why 19 out of 20 doesn't really mean 95%), and then do the Chapter 2 exercise (exercises/ch02_safety_case).
+
+### Readings
+
+- Clymer et al., *Safety Cases: How to Justify the Safety of Advanced AI Systems* (2024): https://arxiv.org/abs/2403.10462
+- Korbak et al., *A sketch of an AI control safety case* (2025): https://arxiv.org/abs/2501.17315
+
+### Self-check
+
+1. What are the four kinds of safety argument, and what evidence does each need?
+2. What three claims does a control safety case rest on?
+3. Why is "19 of 20 attacks caught" weak evidence on its own?
+4. Why is a monitor that is a copy of the untrusted model a problem?
+5. What should trigger re-evaluating a safety case?
+
 ## Glossary
 
 - **Collusion.** Instances of a model coordinating to defeat oversight (e.g., a monitor going easy on attacks from a copy of itself).
+- **Control evaluation.** A test, played out between a red team and a blue team, of whether safeguards stop a model that is deliberately trying to cause harm.
 - **Control protocol.** A plan for using untrusted models safely, built out of monitors, audits, deferral, editing and resampling.
+- **Elicitation.** Getting a model to show its full capability (e.g., through better prompting, scaffolding or fine-tuning).
 - **Internal deployment.** A lab using its own models internally, often on AI research.
+- **Monitor.** A model, classifier or rule set that scores actions for how suspicious they are.
 - **Rule of three.** The approximate 95% upper bound of 3/n on a rate after zero failures in n trials.
 - **Sandbagging.** Deliberately underperforming on an evaluation.
 - **Scheming.** Covertly pursuing unintended goals while appearing to be aligned.
+- **Safety case.** A structured, evidence-backed argument that a system is safe enough in a given context.
 - **Trusted and untrusted models.** A model you're confident isn't scheming (usually a weaker one), as opposed to the capable one you're worried about.
+- **Wilson interval.** A confidence interval for a proportion that behaves well near 0% and 100%.
 
 ## Reading list
 
+- Clymer et al., *Safety Cases: How to Justify the Safety of Advanced AI Systems* (2024): https://arxiv.org/abs/2403.10462
 - Greenblatt et al., *AI Control: Improving Safety Despite Intentional Subversion* (2023): https://arxiv.org/abs/2312.06942
-- Inspect AI (UK AI Security Institute): https://github.com/UKGovernmentBEIS/inspect_ai
+- Inspect AI (UK AI Security Institute and Meridian Labs), getting started and framework documentation: https://inspect.aisi.org.uk/
+- Korbak et al., *A sketch of an AI control safety case* (2025): https://arxiv.org/abs/2501.17315
 - Transluce, *Some Focus Areas for Embedded Evaluations and How to Approach Them* (2026): https://transluce.org/embedded-evaluations

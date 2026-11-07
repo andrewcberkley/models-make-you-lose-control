@@ -8,7 +8,7 @@ authors:
     family-names: "Berkley"
     alias: "andrewcberkley"
     orcid: "https://orcid.org/0009-0005-8113-5058"
-version: 0.2.0
+version: 0.3.0
 repository-code: "https://github.com/andrewcberkley/models-make-you-lose-control"
 license:
   - MIT

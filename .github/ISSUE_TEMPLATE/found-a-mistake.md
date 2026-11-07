@@ -4,7 +4,7 @@ about: A typo, a broken cell, a check that seems wrong, or an explanation that d
 labels: mistake
 ---
 
-**Which chapter and file?** (e.g., Chapter 3, `notebooks/ch03_monitors.ipynb`, Part 4)
+**Which chapter and file?** (e.g., Chapter 4, `notebooks/ch04_monitors.ipynb`, Part 4)
 
 **What went wrong?** (if a cell failed, please paste the cell and the full error message)
 

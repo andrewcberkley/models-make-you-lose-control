@@ -8,6 +8,10 @@ on:
 jobs:
   checks:
     runs-on: ubuntu-latest
+    env:
+      OPENAI_API_KEY: ""
+      ANTHROPIC_API_KEY: ""
+      INSPECT_EVAL_MODEL: mockllm/model
     strategy:
       matrix:
         python-version: ["3.12", "3.14"]
@@ -26,22 +30,64 @@ jobs:
           MPLBACKEND: Agg
         run: |
           mkdir -p "$RUNNER_TEMP/executed"
-          jupyter nbconvert --to notebook --execute --output-dir "$RUNNER_TEMP/executed" solutions/*.ipynb
+          python - <<'RUN'
+          import glob, os, subprocess, sys, time
+          for path in sorted(glob.glob(os.path.join("solutions", "*.ipynb"))):
+              started = time.perf_counter()
+              extra = ["--ExecutePreprocessor.timeout=120"] if path.endswith("ch03_first_real_evaluation_solution.ipynb") else []
+              subprocess.run([sys.executable, "-m", "nbconvert", "--to", "notebook", "--execute",
+                              "--output-dir", os.path.join(os.environ["RUNNER_TEMP"], "executed"), *extra, path],
+                             check=True)
+              elapsed = time.perf_counter() - started
+              if path.endswith("ch03_first_real_evaluation_solution.ipynb"):
+                  print(f"Inspect solution cold run: {elapsed:.1f}s (limit 120s)")
+                  if elapsed >= 120:
+                      sys.exit("The Inspect solution exceeded the two-minute cold-run budget.")
+          RUN
           python - <<'EOF'
           import glob, json, os, sys
           bad = []
           for path in glob.glob(os.path.join(os.environ["RUNNER_TEMP"], "executed", "*.ipynb")):
               for cell in json.load(open(path, encoding="utf-8"))["cells"]:
                   for out in cell.get("outputs", []):
-                      if "Not yet" in "".join(out.get("text", [])):
+                      if any(line.startswith(("Not yet:", "Not started:", "Error:"))
+                             for line in "".join(out.get("text", [])).splitlines()):
                           bad.append(os.path.basename(path))
           if bad:
-              sys.exit(f"Checks said 'Not yet' in: {sorted(set(bad))}")
+              sys.exit(f"Notebook checks did not pass in: {sorted(set(bad))}")
           print("All solution notebooks ran and every check passed.")
           EOF
 
-      - name: Run the Chapter 5 tests against the reference fix
-        if: hashFiles('tests/test_harness.py') != ''
+      - name: Run the blank Inspect notebook on the no-key path
+        if: hashFiles('notebooks/ch03_first_real_evaluation.ipynb') != ''
+        run: |
+          mkdir -p "$RUNNER_TEMP/student"
+          python - <<'RUN'
+          import os, subprocess, sys, time
+          started = time.perf_counter()
+          subprocess.run([sys.executable, "-m", "nbconvert", "--to", "notebook", "--execute",
+                          "--output-dir", os.path.join(os.environ["RUNNER_TEMP"], "student"),
+                          "--ExecutePreprocessor.timeout=120",
+                          os.path.join("notebooks", "ch03_first_real_evaluation.ipynb")], check=True)
+          elapsed = time.perf_counter() - started
+          print(f"Inspect student cold run: {elapsed:.1f}s (limit 120s)")
+          if elapsed >= 120:
+              sys.exit("The Inspect student notebook exceeded the two-minute cold-run budget.")
+          RUN
+          python - <<'EOF'
+          import json, os
+          path = os.path.join(os.environ["RUNNER_TEMP"], "student", "ch03_first_real_evaluation.ipynb")
+          with open(path, encoding="utf-8") as handle:
+              notebook = json.load(handle)
+          text = "".join("".join(out.get("text", []))
+                         for cell in notebook["cells"] for out in cell.get("outputs", []))
+          assert "Ready." in text and "Not yet" in text
+          assert "Skipped the optional real-model run." in text
+          print("The blank Inspect notebook ran offline and reported unfinished exercises.")
+          EOF
+
+      - name: Run toolkit tests and the reference harness tests
+        if: hashFiles('tests/test_*.py') != ''
         env:
           LAB_SOLUTIONS: "1"
         run: python -m pytest tests

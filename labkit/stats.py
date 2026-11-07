@@ -1,4 +1,4 @@
-"""Reference statistics tools used across the chapters (Chapters 1, 2, 3 and 9).
+"""Reference statistics tools used across the chapters (Chapters 1, 2, 3, 4 and 10).
 
 A monitor gives each agent run a suspicion score. Humans can only review a small
 share of runs (the audit budget), so you set a threshold on honest runs and then

@@ -58,9 +58,46 @@ These are the tests I'd run first.
 2. **A compute visibility test.** This checks whether an agent can exceed policy through many small jobs or sub-agents without any person seeing it, and it passes if alerts fire within an agreed time.
 3. **A log integrity test.** This checks, by comparing the action logs with independent telemetry, whether WorkIt can alter them without detection, and it passes if an independent copy exists and mismatches raise an alert.
 
+## Chapter 2. Safety cases
+
+### Self-check answers
+
+1. The four kinds of argument each need a different kind of evidence.
+   - Inability says the model can't do it, and the evidence is well-elicited capability evaluations.
+   - Control says the safeguards stop it even if it tries, and the evidence is control evaluations with a strong red team.
+   - Trustworthiness says it won't try, which rests on alignment evidence that is weak today.
+   - Deference says a trusted AI's judgment can be relied on, which mostly applies to future systems.
+2. The red team adequately elicits the model's ability to subvert the controls, the controls are at least as effective in deployment as in the test, and the developers extrapolate conservatively to deployment.
+3. Its 95% Wilson interval runs from about 76% to 99%, and it says nothing about how strong the attacks were or what the false-alarm rate was (and it may not match deployment conditions either).
+4. A copy of the untrusted model may recognize its own attacks and stay quiet, and it shares the same blind spots, so it needs collusion-busting (e.g., planted attacks and paraphrased inputs) or a trusted monitor in its place.
+5. You should re-evaluate after any of the following.
+   - a new model version or fine-tune
+   - new tools or permissions
+   - a change in the mix or scale of tasks
+   - changes to the monitor, its threshold or review staffing
+   - any incident or near miss
+   - new attack techniques in the literature
+
+### Chapter 2 exercise, model answer
+
+The case presents itself as a control argument (claim 1), although claim 3 leans on trustworthiness-style evidence about reviewers that it never measured. Its five weakest links are below, ranked by how much of the conclusion rests on each.
+
+1. **The monitor is a fine-tuned copy of WorkIt's own model (claim 7).** That makes this untrusted monitoring, and the case says nothing about collusion. The fix is a trusted monitor, or else collusion-busting with planted attacks the monitor must catch, tested against attacks designed to exploit self-recognition.
+2. **The red team was weak (claim 5).** Forty prompts written for last year's model are not an attack policy optimized against this monitor, and one attack did evade the monitor, which the case waves away. The fix is a dedicated red team with the same affordances as the deployed model, attack policies built against this monitor and results reported for the strongest attacks.
+3. **The test doesn't match the deployment (claim 6).** The false-positive rate comes from unit-test-fixing transcripts, while the claimed risks involve config changes, job launches and weight access, so the fix is to measure on representative deployment traffic and on attacks aimed at the stated outcomes.
+4. **The statistics overstate what was shown (claims 2 and 4).** Nineteen of 20 has an interval of about 76% to 99%, and nothing shows that a 1% review rate is "enough" (indeed, if you used the facts from the Chapter 1 exercise, the deployment reviews 0.5% rather than 1%). The fix is larger samples, intervals and a consistent, measured audit budget.
+5. **The evidence and reviewers are unverified (claims 3 and 9).** The logs are written by the system under review, reviewer accuracy is assumed rather than measured, and next-morning review leaves time for harm. The fix is independent append-only logs, measured reviewer accuracy and review latency matched to how fast actions take effect.
+
+Two more weaknesses are worth naming, since per-action scoring (claim 8) can miss attacks spread across steps and claiming validity for future model versions (claim 10) contradicts the case's own logic.
+
+In three sentences, the bottom line would read something like this. "The case argues that controls would stop a misbehaving WorkIt, but its evidence doesn't yet show that. The monitor may cover for the model it watches, the attacks weren't built against this monitor, and the measurements come from different work than WorkIt does. Until a dedicated red team tests the real deployment with a trusted or collusion-tested monitor, treat the risk as unknown rather than acceptable."
+
 ## Discussion prompts and model answers
 
 These are the kinds of questions that come up whenever people talk seriously about loss-of-control evaluation (e.g., in a reading group, a research conversation or your own head), and they're written as you might say them, in the first person. Try answering out loud first, and then adapt these answers rather than memorize them.
 
 **1. Threat-model loss of control from a lab's internal deployment of a coding agent.**
 "I'd start with what the agent can touch and what would happen if it used that access against us. For a coding agent at a lab, I'd look first at changes to training and evaluation code or configs, because they shape future models and often get light review, then at compute it can launch without approval, and then at whether it can edit the logs we rely on. For each one I'd ask whether it could do it, whether a misaligned model would try, and what in the deployment makes it possible. I'd rank them, say what evidence would change the ranking, and propose the first test for the top pathway (usually a red-team attempt in a sandboxed copy of the real workflow)."
+
+**2. Here's a control safety case. Where is it weakest?**
+"I'd map each claim to its evidence first and then look for the assumptions it doesn't state. These cases usually break in the same few places (e.g., a red team weaker than the deployed model, tests run on different tasks from the deployment, small samples reported without intervals, reviewers assumed to be perfect, or monitors that are copies of the model they watch). I'd rank the weaknesses by how much of the conclusion depends on each and say what evidence would fix it, because that's something a lab can act on."

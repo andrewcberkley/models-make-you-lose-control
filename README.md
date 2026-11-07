@@ -12,7 +12,7 @@ This is a short, hands-on guide to evaluating AI systems for loss-of-control ris
 
 The chapter text lives in `docs/CHAPTERS.md` and the companion notebooks live in `notebooks/`. The exercises are in `exercises/`, and a filled-in copy of every notebook is in `solutions/`, along with the solutions to the exercises (`solutions/SOLUTIONS.md`).
 
-**I'm writing these chapters as I go.** So far Chapter 1 is ready, and since building each chapter takes time, I'll add the next one (i.e., Chapter 2) once it's ready.
+**I'm writing these chapters as I go.** So far Chapters 1 and 2 are ready, and since building each chapter takes time, I'll add the next one (i.e., Chapter 3) once it's ready. Next is your first real evaluation, using Inspect with fake tools and a scripted mock model.
 
 Everything here is synthetic, so every address, key, transcript and number is made up and nothing comes from any real organization's systems. The labs you'll work through are fictional too, and I named each one after a Missy Elliott track or something else from that era, with a note in each chapter explaining why.
 
@@ -82,6 +82,8 @@ Go at whatever pace suits you. Most chapters have a companion notebook with the 
 | 0 | Getting-started notebook | How do these notebooks work? |
 | 1 | Chapter 1 notebook. How sure can you be when nothing went wrong? | What do zero failures in 300 tests actually rule out? |
 | 1 | Chapter 1 exercise. Threat model | What could go wrong with a lab's internal coding agent? |
+| 2 | Chapter 2 notebook. Error bars on a rate | Does "19 of 20 attacks caught" mean 95%? |
+| 2 | Chapter 2 exercise. Safety-case critique | How much weight can this safety case bear? |
 
 ## What's in the folder
 

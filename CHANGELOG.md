@@ -1,7 +1,35 @@
 # Changelog
 
-
 This file records what changed in each update, newest first. I'm writing the chapters as I go, so each entry matches a new chapter (or, for the first entry, the setup). The format loosely follows [Keep a Changelog](https://keepachangelog.com), and the version goes up by one minor version per chapter, reaching 1.0.0 once every chapter is written.
+
+## 0.3.0 (Chapter 2. Safety cases and how they break)
+
+Adds Chapter 2 on safety cases and how they break, with its notebook on error bars for a rate and the safety-case exercise.
+
+### Added
+
+- `exercises/ch02_safety_case/instructions.md`, the Chapter 2 exercise instructions
+- `exercises/ch02_safety_case/safety_case.md`, the Chapter 2 exercise safety case to critique
+- `notebooks/ch02_error_bars.ipynb`, the companion notebook for Chapter 2
+- `solutions/ch02_error_bars_solution.ipynb`, the filled-in copy of the Chapter 2 notebook
+
+### Changed
+
+- `.github/ISSUE_TEMPLATE/found-a-mistake.md`, updated cross-references now that Chapter 2 is out
+- `.github/workflows/checks.yml`, prepared no-key Inspect notebook checks, cold-run budgets and toolkit tests
+- `.gitignore`, ignored generated Inspect logs
+- `CITATION.cff`, bumped the version to 0.3.0
+- `CONTRIBUTING.md`, documented the blank and solution notebook checks and the cold-run budget
+- `README.md`, added Chapter 2 to the chapters table and updated the note on what's written so far
+- `docs/CHAPTERS.md`, added the text of Chapter 2, plus any glossary terms and readings it introduces
+- `exercises/README.md`, updated the exercises table for Chapter 2
+- `labkit/stats.py`, updated cross-references now that Chapter 2 is out
+- `notebooks/ch00_getting_started.ipynb`, added Chapter 2 to the roadmap
+- `notebooks/ch01_zero_failures.ipynb`, updated cross-references now that Chapter 2 is out
+- `solutions/SOLUTIONS.md`, added the model answers for Chapter 2
+- `solutions/ch00_getting_started_solution.ipynb`, added Chapter 2 to the roadmap
+- `solutions/ch01_zero_failures_solution.ipynb`, updated cross-references now that Chapter 2 is out
+- `CHANGELOG.md`, added this update's entry
 
 ## 0.2.0 (Chapter 1. Loss-of-control threat models)
 

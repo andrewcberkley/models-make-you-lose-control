@@ -18,6 +18,8 @@ python -m pytest tests          # with LAB_SOLUTIONS=1 set, to run against the r
 python make_data.py             # the data files shouldn't change
 ```
 
+If your change touches the Inspect chapter, run its student and solution notebooks from fresh kernels without API keys. The blank copy should report 11 "Not yet" checks, and the solution should pass all 11. After dependencies are installed, each complete cold run must stay under two minutes, which CI checks as well.
+
 ## Ground rules
 
 - Only use synthetic setups and public data, and never add anything confidential (e.g., real transcripts, prompts or internal documents from any organization).
