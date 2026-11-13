@@ -12,7 +12,7 @@ This is a short, hands-on guide to evaluating AI systems for loss-of-control ris
 
 The chapter text lives in `docs/CHAPTERS.md` and the companion notebooks live in `notebooks/`. The exercises are in `exercises/`, and a filled-in copy of every notebook is in `solutions/`, along with the solutions to the exercises (`solutions/SOLUTIONS.md`).
 
-**I'm writing these chapters as I go.** So far Chapters 1 and 2 are ready, and since building each chapter takes time, I'll add the next one (i.e., Chapter 3) once it's ready. Next is your first real evaluation, using Inspect with fake tools and a scripted mock model.
+**I'm writing these chapters as I go.** So far Chapters 1 to 3 are ready, and since building each chapter takes time, I'll add the next one (i.e., Chapter 4) once it's ready.
 
 Everything here is synthetic, so every address, key, transcript and number is made up and nothing comes from any real organization's systems. The labs you'll work through are fictional too, and I named each one after a Missy Elliott track or something else from that era, with a note in each chapter explaining why.
 
@@ -84,6 +84,7 @@ Go at whatever pace suits you. Most chapters have a companion notebook with the 
 | 1 | Chapter 1 exercise. Threat model | What could go wrong with a lab's internal coding agent? |
 | 2 | Chapter 2 notebook. Error bars on a rate | Does "19 of 20 attacks caught" mean 95%? |
 | 2 | Chapter 2 exercise. Safety-case critique | How much weight can this safety case bear? |
+| 3 | Chapter 3 notebook. Your first real evaluation | Does the agent ask before it acts, and does taking a permission away actually stop it? |
 
 ## What's in the folder
 
@@ -92,7 +93,22 @@ Go at whatever pace suits you. Most chapters have a companion notebook with the 
 - `solutions/` holds a filled-in copy of every notebook and the solutions to the exercises (`solutions/SOLUTIONS.md`).
 - `exercises/` holds the end-of-chapter exercises, including the two capstone exercises.
 - `labkit/` is the reference code the notebooks build on, and while you don't need to edit it, reading it is good practice.
+- `data/` holds the synthetic data, which `make_data.py` can regenerate.
 - `CHANGELOG.md` records what changed in each update, so you can see at a glance what's new since you last looked.
+
+## Running the Chapter 3 evaluation checks
+
+Chapter 3 uses Inspect AI (`inspect-ai==0.3.220`), with scripted mock responses and fake tools that only record calls. After setup, every graded cell runs without an API key, network access or Docker. The optional OpenAI example needs a separate opt-in and your own account, and it isn't part of the answer key.
+
+The checker tests cover approval order, correct refusals, blocked actions, revocation of queued actions and repeated runs.
+
+The lesson keeps all 36 tasks and three repeats. Automated checks also enforce a two-minute cold-run budget for each of the student and solution notebooks, after the dependencies are installed.
+
+```
+.venv\Scripts\python -m pytest tests\test_inspect_lab.py
+```
+
+In the notebook, read the saved Inspect log in Python. Locally, you can also open a terminal in the lab folder and run `.venv\Scripts\inspect view --log-dir logs` to browse the same evidence.
 
 ## If something goes wrong
 
@@ -118,3 +134,12 @@ The code (i.e., the Python files, the code cells in the notebooks and the synthe
 ## Disclaimer
 
 This is a personal project, so the views and approaches here are my own and don't represent any employer or other organization, and nothing here is official guidance. The fictional companies are an affectionate tribute, and this project isn't affiliated with or endorsed by Missy Elliott, her labels, or any of the organizations whose public research I point to. This guide grew out of my own experience, and I used AI tools as a thought partner along the way (e.g., to pressure-test my reasoning, debug code and help with drafting and editing), so the ideas, choices and any mistakes are mine.
+
+## Going further with the real tools
+
+Chapter 3 introduces Inspect with a real evaluation framework and a scripted mock model. Once those basics and the later monitor and control exercises make sense, you can extend the evaluation with the tools below.
+
+Use a separate environment for external collections or newer framework features, so the lab's tested teaching version stays intact.
+
+- [Inspect AI](https://inspect.aisi.org.uk/), from the UK AI Security Institute and Meridian Labs. Start with the [Chapter 3 notebook](notebooks/ch03_first_real_evaluation.ipynb), then explore the [Inspect Evals collection](https://inspect.aisi.org.uk/evals/). A mock run checks your evaluation, not a real model's safety.
+- [ControlArena](https://control-arena.aisi.org.uk/), a control-experiment library built on Inspect by the UK AI Security Institute and Redwood Research. It is a next step after the later control exercise. You can install it in a separate environment with `pip install control-arena`, although most settings need Docker and a model API key.

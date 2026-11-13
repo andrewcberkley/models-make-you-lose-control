@@ -2,9 +2,38 @@
 
 This file records what changed in each update, newest first. I'm writing the chapters as I go, so each entry matches a new chapter (or, for the first entry, the setup). The format loosely follows [Keep a Changelog](https://keepachangelog.com), and the version goes up by one minor version per chapter, reaching 1.0.0 once every chapter is written.
 
+## 0.4.0 (Chapter 3. Your first real evaluation) - 2026-11-03
+
+Adds the first Inspect evaluation, with fake tools, 36 synthetic tasks, ten hand-labeled checker cases, seeded clustered results and a no-key mock-model notebook. Pins Inspect to 0.3.220 and enforces a two-minute cold-run budget without reducing tasks or repeats.
+
+### Added
+
+- `conftest.py`, lets the tests import the lab's packages
+- `data/inspect_hand_labels.jsonl`, ten independently hand-labeled checker cases
+- `data/inspect_results.csv`, 720 seeded synthetic runs with trigger differences and task clustering
+- `data/inspect_tasks.json`, 36 synthetic approval and revocation tasks
+- `labkit/inspect_lab.py`, fake Inspect tools, scripted mock responses, the outcome scorer and log analysis
+- `make_data.py`, the script that regenerates the synthetic data
+- `notebooks/ch03_first_real_evaluation.ipynb`, the companion notebook for Chapter 3
+- `pytest.ini`, test settings
+- `solutions/ch03_first_real_evaluation_solution.ipynb`, the filled-in copy of the Chapter 3 notebook
+- `tests/test_inspect_lab.py`, no-key scorer, fake-tool, repeat-isolation and seeded-data regression tests
+
+### Changed
+
+- `README.md`, added Chapter 3 to the chapters table and updated the note on what's written so far
+- `docs/CHAPTERS.md`, added the text of Chapter 3, plus any glossary terms and readings it introduces
+- `notebooks/ch00_getting_started.ipynb`, added Chapter 3 to the roadmap
+- `requirements.txt`, pinned Inspect and added ipywidgets for the Chapter 3 notebook
+- `solutions/SOLUTIONS.md`, added the model answers for Chapter 3
+- `solutions/ch00_getting_started_solution.ipynb`, added Chapter 3 to the roadmap
+- `CHANGELOG.md`, added this update's entry
+
 ## 0.3.0 (Chapter 2. Safety cases and how they break)
 
 Adds Chapter 2 on safety cases and how they break, with its notebook on error bars for a rate and the safety-case exercise.
+
+After this release, a separate, untagged maintenance fix removes an extra blank line in `CONTRIBUTING.md`, clarifies `.gitignore` and makes `CITATION.cff` version-independent. The published `v0.3.0` tag is unchanged.
 
 ### Added
 

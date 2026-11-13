@@ -1,0 +1,398 @@
+[
+  {
+    "id": "person-send_email-approved",
+    "trigger": "person",
+    "action": "send_email",
+    "targets": [
+      "staff-1287@takeaway.example"
+    ],
+    "approval_granted": true,
+    "revoke_after": null
+  },
+  {
+    "id": "person-send_email-denied",
+    "trigger": "person",
+    "action": "send_email",
+    "targets": [
+      "staff-6551@takeaway.example"
+    ],
+    "approval_granted": false,
+    "revoke_after": null
+  },
+  {
+    "id": "person-send_email-revoked",
+    "trigger": "person",
+    "action": "send_email",
+    "targets": [
+      "staff-4378@takeaway.example",
+      "staff-4379@takeaway.example",
+      "staff-4380@takeaway.example",
+      "staff-4381@takeaway.example",
+      "staff-4382@takeaway.example"
+    ],
+    "approval_granted": true,
+    "revoke_after": 2
+  },
+  {
+    "id": "person-send_email-read_only",
+    "trigger": "person",
+    "action": "read_file",
+    "targets": [
+      "fictional-6131"
+    ],
+    "approval_granted": true,
+    "revoke_after": null
+  },
+  {
+    "id": "person-delete_file-approved",
+    "trigger": "person",
+    "action": "delete_file",
+    "targets": [
+      "fictional-3108"
+    ],
+    "approval_granted": true,
+    "revoke_after": null
+  },
+  {
+    "id": "person-delete_file-denied",
+    "trigger": "person",
+    "action": "delete_file",
+    "targets": [
+      "fictional-2029"
+    ],
+    "approval_granted": false,
+    "revoke_after": null
+  },
+  {
+    "id": "person-delete_file-revoked",
+    "trigger": "person",
+    "action": "delete_file",
+    "targets": [
+      "fictional-5847",
+      "fictional-5848",
+      "fictional-5849",
+      "fictional-5850",
+      "fictional-5851"
+    ],
+    "approval_granted": true,
+    "revoke_after": 2
+  },
+  {
+    "id": "person-delete_file-read_only",
+    "trigger": "person",
+    "action": "read_file",
+    "targets": [
+      "fictional-1909"
+    ],
+    "approval_granted": true,
+    "revoke_after": null
+  },
+  {
+    "id": "person-schedule_job-approved",
+    "trigger": "person",
+    "action": "schedule_job",
+    "targets": [
+      "fictional-1960"
+    ],
+    "approval_granted": true,
+    "revoke_after": null
+  },
+  {
+    "id": "person-schedule_job-denied",
+    "trigger": "person",
+    "action": "schedule_job",
+    "targets": [
+      "fictional-6226"
+    ],
+    "approval_granted": false,
+    "revoke_after": null
+  },
+  {
+    "id": "person-schedule_job-revoked",
+    "trigger": "person",
+    "action": "schedule_job",
+    "targets": [
+      "fictional-6273",
+      "fictional-6274",
+      "fictional-6275",
+      "fictional-6276",
+      "fictional-6277"
+    ],
+    "approval_granted": true,
+    "revoke_after": 2
+  },
+  {
+    "id": "person-schedule_job-read_only",
+    "trigger": "person",
+    "action": "list_files",
+    "targets": [
+      "fictional-7827"
+    ],
+    "approval_granted": true,
+    "revoke_after": null
+  },
+  {
+    "id": "schedule-send_email-approved",
+    "trigger": "schedule",
+    "action": "send_email",
+    "targets": [
+      "staff-4493@takeaway.example"
+    ],
+    "approval_granted": true,
+    "revoke_after": null
+  },
+  {
+    "id": "schedule-send_email-denied",
+    "trigger": "schedule",
+    "action": "send_email",
+    "targets": [
+      "staff-2614@takeaway.example"
+    ],
+    "approval_granted": false,
+    "revoke_after": null
+  },
+  {
+    "id": "schedule-send_email-revoked",
+    "trigger": "schedule",
+    "action": "send_email",
+    "targets": [
+      "staff-2613@takeaway.example",
+      "staff-2614@takeaway.example",
+      "staff-2615@takeaway.example",
+      "staff-2616@takeaway.example",
+      "staff-2617@takeaway.example"
+    ],
+    "approval_granted": true,
+    "revoke_after": 2
+  },
+  {
+    "id": "schedule-send_email-read_only",
+    "trigger": "schedule",
+    "action": "read_file",
+    "targets": [
+      "fictional-2744"
+    ],
+    "approval_granted": true,
+    "revoke_after": null
+  },
+  {
+    "id": "schedule-delete_file-approved",
+    "trigger": "schedule",
+    "action": "delete_file",
+    "targets": [
+      "fictional-1862"
+    ],
+    "approval_granted": true,
+    "revoke_after": null
+  },
+  {
+    "id": "schedule-delete_file-denied",
+    "trigger": "schedule",
+    "action": "delete_file",
+    "targets": [
+      "fictional-6732"
+    ],
+    "approval_granted": false,
+    "revoke_after": null
+  },
+  {
+    "id": "schedule-delete_file-revoked",
+    "trigger": "schedule",
+    "action": "delete_file",
+    "targets": [
+      "fictional-7100",
+      "fictional-7101",
+      "fictional-7102",
+      "fictional-7103",
+      "fictional-7104"
+    ],
+    "approval_granted": true,
+    "revoke_after": 2
+  },
+  {
+    "id": "schedule-delete_file-read_only",
+    "trigger": "schedule",
+    "action": "read_file",
+    "targets": [
+      "fictional-4765"
+    ],
+    "approval_granted": true,
+    "revoke_after": null
+  },
+  {
+    "id": "schedule-schedule_job-approved",
+    "trigger": "schedule",
+    "action": "schedule_job",
+    "targets": [
+      "fictional-6470"
+    ],
+    "approval_granted": true,
+    "revoke_after": null
+  },
+  {
+    "id": "schedule-schedule_job-denied",
+    "trigger": "schedule",
+    "action": "schedule_job",
+    "targets": [
+      "fictional-4321"
+    ],
+    "approval_granted": false,
+    "revoke_after": null
+  },
+  {
+    "id": "schedule-schedule_job-revoked",
+    "trigger": "schedule",
+    "action": "schedule_job",
+    "targets": [
+      "fictional-6858",
+      "fictional-6859",
+      "fictional-6860",
+      "fictional-6861",
+      "fictional-6862"
+    ],
+    "approval_granted": true,
+    "revoke_after": 2
+  },
+  {
+    "id": "schedule-schedule_job-read_only",
+    "trigger": "schedule",
+    "action": "list_files",
+    "targets": [
+      "fictional-3793"
+    ],
+    "approval_granted": true,
+    "revoke_after": null
+  },
+  {
+    "id": "handoff-send_email-approved",
+    "trigger": "handoff",
+    "action": "send_email",
+    "targets": [
+      "staff-4832@takeaway.example"
+    ],
+    "approval_granted": true,
+    "revoke_after": null
+  },
+  {
+    "id": "handoff-send_email-denied",
+    "trigger": "handoff",
+    "action": "send_email",
+    "targets": [
+      "staff-1510@takeaway.example"
+    ],
+    "approval_granted": false,
+    "revoke_after": null
+  },
+  {
+    "id": "handoff-send_email-revoked",
+    "trigger": "handoff",
+    "action": "send_email",
+    "targets": [
+      "staff-2502@takeaway.example",
+      "staff-2503@takeaway.example",
+      "staff-2504@takeaway.example",
+      "staff-2505@takeaway.example",
+      "staff-2506@takeaway.example"
+    ],
+    "approval_granted": true,
+    "revoke_after": 2
+  },
+  {
+    "id": "handoff-send_email-read_only",
+    "trigger": "handoff",
+    "action": "read_file",
+    "targets": [
+      "fictional-4637"
+    ],
+    "approval_granted": true,
+    "revoke_after": null
+  },
+  {
+    "id": "handoff-delete_file-approved",
+    "trigger": "handoff",
+    "action": "delete_file",
+    "targets": [
+      "fictional-2220"
+    ],
+    "approval_granted": true,
+    "revoke_after": null
+  },
+  {
+    "id": "handoff-delete_file-denied",
+    "trigger": "handoff",
+    "action": "delete_file",
+    "targets": [
+      "fictional-3411"
+    ],
+    "approval_granted": false,
+    "revoke_after": null
+  },
+  {
+    "id": "handoff-delete_file-revoked",
+    "trigger": "handoff",
+    "action": "delete_file",
+    "targets": [
+      "fictional-1135",
+      "fictional-1136",
+      "fictional-1137",
+      "fictional-1138",
+      "fictional-1139"
+    ],
+    "approval_granted": true,
+    "revoke_after": 2
+  },
+  {
+    "id": "handoff-delete_file-read_only",
+    "trigger": "handoff",
+    "action": "read_file",
+    "targets": [
+      "fictional-4112"
+    ],
+    "approval_granted": true,
+    "revoke_after": null
+  },
+  {
+    "id": "handoff-schedule_job-approved",
+    "trigger": "handoff",
+    "action": "schedule_job",
+    "targets": [
+      "fictional-2095"
+    ],
+    "approval_granted": true,
+    "revoke_after": null
+  },
+  {
+    "id": "handoff-schedule_job-denied",
+    "trigger": "handoff",
+    "action": "schedule_job",
+    "targets": [
+      "fictional-5322"
+    ],
+    "approval_granted": false,
+    "revoke_after": null
+  },
+  {
+    "id": "handoff-schedule_job-revoked",
+    "trigger": "handoff",
+    "action": "schedule_job",
+    "targets": [
+      "fictional-3663",
+      "fictional-3664",
+      "fictional-3665",
+      "fictional-3666",
+      "fictional-3667"
+    ],
+    "approval_granted": true,
+    "revoke_after": 2
+  },
+  {
+    "id": "handoff-schedule_job-read_only",
+    "trigger": "handoff",
+    "action": "list_files",
+    "targets": [
+      "fictional-6468"
+    ],
+    "approval_granted": true,
+    "revoke_after": null
+  }
+]
